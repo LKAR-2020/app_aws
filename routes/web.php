@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Usercontroller;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::resource('Users', Usercontroller::class);
+Route::get('/index', function () {
+    $listes = User::all();
+    return view('index', compact('listes'));
+})->name('index');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
